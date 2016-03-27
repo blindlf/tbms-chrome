@@ -13,10 +13,13 @@
 		"default_popup": "popup.html"
 	},
 	"permissions": [
-		"activeTab"
+		"webRequest",
+		"tabs",
+		"*://miaosha.taobao.com/*",
+		"*://miao.item.taobao.com/*"
 	],
 	"content_scripts": [{
-		"matches": ["https://www.baidu.com/*"],
+		"matches": ["https://www.baidu.com/*", "*://miao.item.taobao.com/*", "*://miaosha.taobao.com/*"],
 		"js": ["contentscript.js"]
 	}],
 	"web_accessible_resources": ["script.js"]
