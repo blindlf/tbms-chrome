@@ -16,10 +16,11 @@
 		"webRequest",
 		"tabs",
 		"*://miaosha.taobao.com/*",
-		"*://miao.item.taobao.com/*"
+		"*://miao.item.taobao.com/*",
+		"*://gm.mmstat.com/tbrate*"
 	],
 	"content_scripts": [{
-		"matches": ["https://www.baidu.com/*", "*://miao.item.taobao.com/*", "*://miaosha.taobao.com/*"],
+		"matches": ["https://www.baidu.com/*", "*://miao.item.taobao.com/*", "*://miaosha.taobao.com/*", "*://gm.mmstat.com/tbrate*"],
 		"js": ["contentscript.js"]
 	}],
 	"web_accessible_resources": ["script.js"]
