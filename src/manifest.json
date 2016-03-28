@@ -20,12 +20,13 @@
 		"webRequest",
 		"tabs",
 		"*://miao.item.taobao.com/*",
-		"*://m.ajax.taobao.com/qst.htm*",
-		"*://gm.mmstat.com/tbrate*",
-		"*://miaosha.taobao.com/*"
+		"*://img1.tbcdn.cn/tfscom/TB1*",
+		"*://m.ajax.taobao.com/qst.htm*"
 	],
 	"content_scripts": [{
-		"matches": ["*://miao.item.taobao.com/*", "*://gm.mmstat.com/tbrate*", "*://miaosha.taobao.com/*"],
-		"js": ["contentscript.js"]
+		"matches": [
+			"*://miao.item.taobao.com/*"
+		],
+		"js": ["caman.full.min.js", "contentscript.js"]
 	}]
 }
