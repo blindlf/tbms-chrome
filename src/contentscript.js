@@ -195,8 +195,8 @@ function processCaptcha() {
 	if (inp) {
 		// input box aspect
 		inp.style.fontSize = '18px';
-		inp.height = '30px';
-		inp.color = 'black';
+		inp.style.height = '30px';
+		inp.style.color = 'black';
 		inp.focus();
 	}
 }
