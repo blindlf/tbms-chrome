@@ -27,6 +27,6 @@
 		"matches": [
 			"*://miao.item.taobao.com/*"
 		],
-		"js": ["caman.full.min.js", "contentscript.js"]
+		"js": ["contentscript.js"]
 	}]
 }

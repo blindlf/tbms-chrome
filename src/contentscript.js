@@ -127,27 +127,40 @@ function processCaptcha() {
 		return;
 	}
 	// Already processed
-	if (document.querySelector('#J_SecKill canvas')) {
+	if (document.querySelector('#J_SecKill svg')) {
 		return;
 	}
 	setBadgeText('A');
 
 	// Draw
-	var img = new Image();
-	img.crossOrigin = '';
-	img.onload = function() {
-		var canvas = document.createElement('canvas');
-		canvas.setAttribute('width', eimg.clientWidth);
-		canvas.setAttribute('height', eimg.clientHeight);
-		eimg.parentNode.appendChild(canvas);
-		var ctx = canvas.getContext('2d');
-		ctx.drawImage(img, 0, 0);
+	var src = eimg.src + '?rep=1';
+	var html = '';
+	html += '<svg width="320" height="320"\n';
+	html += '		xmlns="http://www.w3.org/2000/svg"\n';
+	html += '		xmlns:xlink="http://www.w3.org/1999/xlink">\n';
+	html += '	<defs>\n';
+	html += '		<filter id="clearCaptcha" color-interpolation-filters="sRGB">\n';
+	html += '			<feComponentTransfer in="SourceGraphic" result="invert">\n';
+	html += '				<feFuncA type="identity" />\n';
+	html += '				<feFuncR type="linear" slope="-1" intercept="1" />\n';
+	html += '				<feFuncG type="linear" slope="-1" intercept="1" />\n';
+	html += '				<feFuncB type="linear" slope="-1" intercept="1" />\n';
+	html += '			</feComponentTransfer>\n';
+	html += '			<feGaussianBlur in="invert" stdDeviation="4"/>\n';
+	html += '		</filter>\n';
+	html += '	</defs>\n';
+	html += '	<g>\n';
+	html += '		<image id="captcha" width="320" height="70"\n';
+	html += '				xlink:href="'+src+'"></image>\n';
+	html += '		<use xlink:href="#captcha" style="mix-blend-mode: color-dodge" filter="url(#clearCaptcha)"/>\n';
+	html += '	</g>\n';
+	html += '</svg>\n';
 
-		Caman(canvas, function () {
-			this.threshold(90).render();
-		});
-	};
-	img.src = eimg.src + '?rep=1';
+	var container = document.createElement('div');
+	container.innerHTML = html;
+	if (container.firstChild) {
+		eimg.parentNode.appendChild(container.firstChild);
+	}
 
 	var inp = document.querySelector('#J_SecKill input.answer-input');
 	if (inp) {
@@ -168,8 +181,8 @@ ready(function() {
 			reloadPage();
 		} else if (STATUS.Ready === status) {
 			refresh();
-		} else if (STATUS.Question === status) {
-			//processCaptcha();
+		} else if (STATUS.Expired === status) {
+			console.log('expired at ' + (new Date()));
 		}
 	}, false);
 });
