@@ -8,10 +8,38 @@ function ready(fn) {
 
 // Change icon and text
 function enableMe() {
-	chrome.runtime.sendMessage({'enable': true});
+	chrome.runtime.sendMessage({'enableMe': true});
 }
 function setBadgeText(text) {
 	chrome.runtime.sendMessage({'badgeText': text});
+}
+function log() {
+	var text = '';
+	for (i=0; i<arguments.length; i++) {
+		text += arguments[i] + ' ';
+	}
+	text = text.trim();
+
+	var container = document.querySelector('#J_SecKill');
+	if (!container) {
+		console.log(text);
+		return;
+	}
+
+	var id = 'tbms-msg';
+	var logger = document.querySelector('#'+id);
+	if (!logger) {
+		// logger and aspect
+		logger = document.createElement('div');
+		container.parentNode.insertBefore(logger, container);
+		logger.setAttribute('id', id);
+		logger.style.fontSize = '12px';
+		logger.style.color = 'black';
+		logger.style.paddingLeft = '12px';
+		logger.style.position = "relative";
+		logger.style.top = "8px";
+	}
+	logger.textContent = text;
 }
 
 // Status enum
@@ -69,7 +97,7 @@ function getEtaSecs() {
 // Wait to start before 5 minutes
 function reloadPage() {
 	setTimeout(function() {
-		console.log("eta", getEtaSecs());
+		log('距秒杀还有', getEtaSecs(), '秒');
 		if (getEtaSecs() < 300) {
 			window.location.reload();
 		} else {
@@ -78,11 +106,12 @@ function reloadPage() {
 	}, 5000);
 	enableMe();
 	setBadgeText('W');
+	log('等待秒杀开始', parseInt(getEtaSecs()/60), '分钟');
 }
 
 // 刷新抢宝
 function refresh() {
-	console.log('refresh', getEtaSecs());
+	log('距秒杀还有', getEtaSecs(), '秒');
 	enableMe();
 	if (getEtaSecs() <= 3.0) {
 		refreshStick();
@@ -100,11 +129,11 @@ function refreshStick() {
 		return;
 	}
 	var event = document.createEvent('HTMLEvents');
-	event.initEvent('click', true, false);
+	event.initEvent('click', true, true);
 	// *://img1.tbcdn.cn/tfscom/TB1* should be requested
 	btn.dispatchEvent(event);
 	setBadgeText('H');
-	console.log('refreshStick', getEtaSecs());
+	log('距秒杀还有', getEtaSecs(), '秒');
 }
 
 chrome.runtime.onMessage.addListener(
@@ -164,6 +193,10 @@ function processCaptcha() {
 
 	var inp = document.querySelector('#J_SecKill input.answer-input');
 	if (inp) {
+		// input box aspect
+		inp.style.fontSize = '18px';
+		inp.height = '30px';
+		inp.color = 'black';
 		inp.focus();
 	}
 }
@@ -176,13 +209,12 @@ ready(function() {
 	}
 	container.addEventListener('DOMSubtreeModified', function () {
 		var status = getStatus();
-		console.log("status", status);
 		if (STATUS.NotReady === status) {
 			reloadPage();
 		} else if (STATUS.Ready === status) {
 			refresh();
 		} else if (STATUS.Expired === status) {
-			console.log('expired at ' + (new Date()));
+			log('秒杀已结束，当前时间', (new Date()).toLocaleTimeString());
 		}
 	}, false);
 });

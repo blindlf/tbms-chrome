@@ -18,7 +18,7 @@ chrome.webRequest.onCompleted.addListener(
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		if (request.enable) {
+		if (request.enableMe) {
 			// Enabled
 			chrome.browserAction.enable(sender.tab.id);
 		} else if (request.badgeText) {
