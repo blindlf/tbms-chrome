@@ -7,11 +7,11 @@ function ready(fn) {
 }
 
 // Change icon and text
-function setIcon(path) {
-	chrome.runtime.sendMessage({'iconPath' : path});
+function enableMe() {
+	chrome.runtime.sendMessage({'enable': true});
 }
 function setBadgeText(text) {
-	chrome.runtime.sendMessage({'badgeText' : text});
+	chrome.runtime.sendMessage({'badgeText': text});
 }
 
 // Status enum
@@ -76,14 +76,14 @@ function reloadPage() {
 			reloadPage();
 		}
 	}, 5000);
-	setIcon('icon-19.png');
+	enableMe();
 	setBadgeText('W');
 }
 
 // 刷新抢宝
 function refresh() {
 	console.log('refresh', getEtaSecs());
-	setIcon('icon-19.png');
+	enableMe();
 	if (getEtaSecs() <= 3.0) {
 		refreshStick();
 	} else {

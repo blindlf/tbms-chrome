@@ -14,7 +14,7 @@
 		"32": "icon-32.png"
 	},
 	"browser_action": {
-		"default_icon": "icon-19-disabled.png"
+		"default_icon": "icon-19.png"
 	},
 	"permissions": [
 		"webRequest",

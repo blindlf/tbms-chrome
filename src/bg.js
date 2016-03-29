@@ -1,3 +1,6 @@
+// Default is disabled for other pages
+chrome.browserAction.disable();
+
 chrome.webRequest.onCompleted.addListener(
 	function(details) {
 		chrome.tabs.sendMessage(details.tabId, {qst: details.url});
@@ -15,13 +18,11 @@ chrome.webRequest.onCompleted.addListener(
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		// read `newIconPath` from request and read `tab.id` from sender
-		if (request.iconPath) {
-			chrome.browserAction.setIcon({
-				path: request.iconPath,
-				tabId: sender.tab.id
-			});
+		if (request.enable) {
+			// Enabled
+			chrome.browserAction.enable(sender.tab.id);
 		} else if (request.badgeText) {
+			// Change badge
 			chrome.browserAction.setBadgeText({
 				text: request.badgeText,
 				tabId: sender.tab.id
