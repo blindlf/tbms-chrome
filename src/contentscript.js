@@ -135,7 +135,7 @@ function processCaptcha() {
 	// Draw
 	var src = eimg.src + '?rep=1';
 	var html = '';
-	html += '<svg width="320" height="320"\n';
+	html += '<svg width="320" height="70"\n';
 	html += '		xmlns="http://www.w3.org/2000/svg"\n';
 	html += '		xmlns:xlink="http://www.w3.org/1999/xlink">\n';
 	html += '	<defs>\n';
