@@ -53,7 +53,8 @@ var STATUS = {
 };
 
 function getStatus() {
-	if (null != document.querySelector('#J_SecKill .upper-begun')) {
+	if (null != document.querySelector(
+				'#J_SecKill .upper-begun, #J_SecKill .upper-scan')) {
 		// class .not-ready also presence
 		return STATUS.NotAvailable;
 	}
@@ -61,6 +62,10 @@ function getStatus() {
 		return STATUS.RequireLogin;
 	}
 	if (null != document.querySelector('#J_SecKill .not-ready')) {
+		return STATUS.NotReady;
+	}
+	if (null != document.querySelector(
+				'#J_SecKill .sk-button:not(.J_RefreshStatus)')) {
 		return STATUS.NotReady;
 	}
 	if (null != document.querySelector('#J_SecKill .J_RefreshStatus')) {
