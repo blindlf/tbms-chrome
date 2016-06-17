@@ -118,7 +118,7 @@ function reloadPage() {
 function refresh() {
 	log('距秒杀还有', getEtaSecs(), '秒');
 	enableMe();
-	if (getEtaSecs() <= 3.0) {
+	if (getEtaSecs() <= 5.0) {
 		refreshStick();
 	} else {
 		setBadgeText('R');

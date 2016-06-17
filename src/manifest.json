@@ -21,7 +21,8 @@
 		"tabs",
 		"*://miao.item.taobao.com/*",
 		"*://img1.tbcdn.cn/tfscom/TB1*",
-		"*://m.ajax.taobao.com/qst.htm*"
+		"*://m.ajax.taobao.com/qst.htm*",
+		"*://sh.detailskip.taobao.com/qst.htm"
 	],
 	"content_scripts": [{
 		"matches": [

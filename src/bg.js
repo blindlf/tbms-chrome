@@ -4,7 +4,10 @@ chrome.browserAction.disable();
 chrome.webRequest.onCompleted.addListener(
 	function(details) {
 		chrome.tabs.sendMessage(details.tabId, {qst: details.url});
-	}, {urls: ['*://m.ajax.taobao.com/qst.htm*']}
+	}, {urls: [
+		'*://m.ajax.taobao.com/qst.htm*', // old
+		'*://sh.detailskip.taobao.com/qst.htm*' // new
+	]}
 );
 
 chrome.webRequest.onCompleted.addListener(
